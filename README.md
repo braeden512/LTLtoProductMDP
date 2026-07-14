@@ -1,4 +1,5 @@
 # LTLtoProductMDP
+
 ## Quick example of how LCRL and OWL might combine to create a working flow
 
 Product MDP not explicitly shown, LCRL makes something called on-the-fly product mdp, aka it only constructs the product states that the agent actually visits.
@@ -11,7 +12,7 @@ install owl and ensure it works with `owl --help`
 
 run an LTL formula on an environment mdp (all are listed in the environments folder) with a command like this:
 
-`printf 'n\n' | MPLBACKEND=Agg python - <<'PY'
+`MPLBACKEND=Agg PYTHONPATH=src python - <<'PY'
 from lcrl.train import train
 from lcrl.environments.gridworld_1 import gridworld_1
 train(
@@ -23,8 +24,7 @@ train(
     discount_factor=0.95,
     learning_rate=0.9,
     epsilon=0.0,
-    test=True,
-    owl_binary='/tmp/owl-dist/owl-linux-musl-amd64-21.0/bin/owl'
+    test=True
 )
 PY`
 

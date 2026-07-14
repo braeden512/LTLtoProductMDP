@@ -1,0 +1,2 @@
+include src/lcrl/environments/layouts/*.png
+include assets/*.png
