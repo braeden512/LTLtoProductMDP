@@ -61,6 +61,7 @@ src/lcrl/environments/gridworld_3.py
 src/lcrl/environments/mars_rover_1_2.py
 src/lcrl/environments/mars_rover_3_4.py
 src/lcrl/environments/minecraft.py
+src/lcrl/environments/ordered_goal_grid.py
 src/lcrl/environments/pacman.py
 src/lcrl/environments/pacman_f.py
 src/lcrl/environments/pacman_g.py
