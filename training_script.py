@@ -8,7 +8,7 @@ train(
   'G(!obstacle) & F(goal1 & F(goal2 & F(end)))',
   # eventually replace with MAPPO
   algorithm='ql', 
-  episode_num=10000, 
+  episode_num=20000, 
   iteration_num_max=4000, 
   discount_factor=0.95, 
   learning_rate=0.9, 

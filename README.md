@@ -28,6 +28,9 @@ train(
 )
 PY`
 
+Run training script on ordered_goal_grid custom environment:
+`python training_script.py`
+
 In this example the LTL formla is F(goal1 & X F goal2) and the environment is gridworld_1
 
 Check success rate in testing to evaluate whether the learned policy satisfies the specification.

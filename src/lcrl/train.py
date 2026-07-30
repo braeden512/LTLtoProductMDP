@@ -174,7 +174,7 @@ def train(
         print('success rate in testing: ' + str(100 * learning_task.successes_in_test / number_of_tests) + '%')
 
         print("Length of test_path:", len(test_path))
-        print("First 10 states:", test_path[:10])
+        print("Path states:", test_path[:])
 
     if isinstance(MDP, SlipperyGrid) and test:
         # plt.plot(learning_task.path_length, c='royalblue')
