@@ -55,13 +55,14 @@ def train(
     if average_window == -1:
         average_window = int(0.03 * episode_num)
 
-    plt.plot(learning_task.q_at_initial_state, c="royalblue")
-    plt.xlabel('Episode Number')
-    plt.ylabel('Value Function at The Initial State')
-    plt.grid(True)
+    convergence_fig, convergence_ax = plt.subplots()
+    convergence_ax.plot(learning_task.q_at_initial_state, c="royalblue")
+    convergence_ax.set_xlabel('Episode Number')
+    convergence_ax.set_ylabel('Value Function at The Initial State')
+    convergence_ax.grid(True)
     if average_window > 0:
         avg = np.convolve(learning_task.q_at_initial_state, np.ones((average_window,)) / average_window, mode='valid')
-        plt.plot(avg, c='darkblue')
+        convergence_ax.plot(avg, c='darkblue')
 
     # saving the results
     results_path = os.path.join(os.getcwd(), save_dir[2:])
@@ -70,9 +71,9 @@ def train(
     if not os.path.exists(results_path):
         os.mkdir(results_path)
     os.mkdir(results_sub_path)
-    plt.savefig(os.path.join(results_sub_path, 'convergence.png'))
-
+    convergence_fig.savefig(os.path.join(results_sub_path, 'convergence.png'))
     plt.show()
+    plt.close(convergence_fig)
 
     if test:
         print('testing...')
@@ -205,19 +206,21 @@ def train(
                 labels_value[i][j] = labels_dic[learning_task.MDP.state_label([i, j])]
         patches = [mpatches.Patch(color=color_map[i], label=list(distinct_labels)[i]) for i in
                    range(len(distinct_labels))]
-        plt.imshow(labels_value, interpolation='nearest', cmap=cmap, norm=norm)
-        plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+        policy_fig, policy_ax = plt.subplots()
+        policy_ax.imshow(labels_value, interpolation='nearest', cmap=cmap, norm=norm)
+        policy_ax.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
         path_x, path_y = np.array(test_path).T
-        plt.scatter(path_y, path_x, c='lime', edgecolors='teal')
-        plt.scatter(path_y[0], path_x[0], c='red', edgecolors='black')
-        plt.annotate('s_0', (path_y[0], path_x[0]), fontsize=15, xytext=(20, 20), textcoords="offset points",
-                     va="center", ha="left",
-                     bbox=dict(boxstyle="round", fc="w"),
-                     arrowprops=dict(arrowstyle="->"))
-        plt.title('This policy is synthesised by the trained agent')
-        plt.savefig(
+        policy_ax.scatter(path_y, path_x, c='lime', edgecolors='teal')
+        policy_ax.scatter(path_y[0], path_x[0], c='red', edgecolors='black')
+        policy_ax.annotate('s_0', (path_y[0], path_x[0]), fontsize=15, xytext=(20, 20), textcoords="offset points",
+                           va="center", ha="left",
+                           bbox=dict(boxstyle="round", fc="w"),
+                           arrowprops=dict(arrowstyle="->"))
+        policy_ax.set_title('This policy is synthesised by the trained agent')
+        policy_fig.savefig(
             os.path.join(results_sub_path, 'tested_policy.png'), bbox_inches="tight")
         plt.show()
+        plt.close(policy_fig)
         try:
             is_gif = input(
                 'Would you like to create a gif for the the control policy? '
@@ -233,18 +236,20 @@ def train(
         return learning_task
 
     if isinstance(MDP, MarsRover) and test:
-        plt.imshow(MDP.background)
+        policy_fig, policy_ax = plt.subplots()
+        policy_ax.imshow(MDP.background)
         path_x, path_y = np.array(test_path).T
-        plt.scatter(path_y, path_x, c='lime', edgecolors='teal')
-        plt.scatter(path_y[0], path_x[0], c='red', edgecolors='black')
-        plt.annotate('s_0', (path_y[0], path_x[0]), fontsize=15, xytext=(20, 20), textcoords="offset points",
-                     va="center", ha="left",
-                     bbox=dict(boxstyle="round", fc="w"),
-                     arrowprops=dict(arrowstyle="->"))
-        plt.title('This policy is synthesised by the trained agent')
-        plt.savefig(
+        policy_ax.scatter(path_y, path_x, c='lime', edgecolors='teal')
+        policy_ax.scatter(path_y[0], path_x[0], c='red', edgecolors='black')
+        policy_ax.annotate('s_0', (path_y[0], path_x[0]), fontsize=15, xytext=(20, 20), textcoords="offset points",
+                           va="center", ha="left",
+                           bbox=dict(boxstyle="round", fc="w"),
+                           arrowprops=dict(arrowstyle="->"))
+        policy_ax.set_title('This policy is synthesised by the trained agent')
+        policy_fig.savefig(
             os.path.join(results_sub_path, 'tested_policy.png'), bbox_inches="tight")
         plt.show()
+        plt.close(policy_fig)
         # is_gif = input(
         #     'Would you like to create a gif for the the control policy? '
         #     'If so, type in "y", otherwise, type in "n". ')
