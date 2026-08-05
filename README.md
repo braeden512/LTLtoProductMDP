@@ -65,4 +65,4 @@ train(
 PY
 ```
 
-![Example run of training_script.py](image.png)
+![Example run of training_script.py](results/03.08.2026_11.50.51/animation/executed_policy.gif)
