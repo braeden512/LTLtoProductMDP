@@ -59,7 +59,7 @@ train(
 PY
 ```
 
-![Example run of training_script.py](results/03.08.2026_11.50.51/animation/executed_policy.gif)
+![Example run of training_script.py](image-1.png)
 
 Note: Training currently doesn't optimize for shortest path, just for satisfying LTL specification. Look into this in the future (as well as multi-agent capabilities)
 
